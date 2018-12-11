@@ -9,8 +9,17 @@
               #name: "Get homepage HTTP code"
               #uri:
               # url: https://www.google.com
-    - debug: var=ansible_all_ipv4_addresses
     - set_fact:
-          ipadd: "http://{{ ansible_default_ipv4.address }}"
-    - debug:
-        msg: "htp://{{ ipadd }}"
+        ipadd: "{{ ansible_default_ipv4.address }}"
+    - uri: 
+        url: "http://{{ ipadd }}"
+        return_content: yes
+      register: output
+    - debug: 
+        msg: "Drupal ok"
+      when: output.content is search ("Powered by")
+      #failed_when: output.content is not search ("Powered by Drupal")
+
+
+
+       
