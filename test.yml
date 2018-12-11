@@ -3,9 +3,8 @@
   hosts: all
   gather_facts: True
   tasks:
-    - name: "début du test"
-      debug:
-        msg: "Voici le début du test"
+    - set_fact:
+        ipadd: "{{ ansible_default_ipv4.address }}"
     - name: "get homepage HTTP code"
       uri:
-        url: http://www.test.tf/fake.html
+        url: "http://{{ ipadd }}"
