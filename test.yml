@@ -16,3 +16,9 @@
     - name: "Get homepage HTTP code"
       uri:
         url: "http://{{ipadd}}"
+        return_content: yes
+      register: output
+    - debug:
+        msg: "Drupal OK"
+      when: output.content is search('Powered by')
+      failed_when: output.content is not search('Powered by')
