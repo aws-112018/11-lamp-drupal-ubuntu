@@ -1,14 +1,9 @@
 ---
-- name: "récupérer l'adresse IP en tant que fact"
-  hosts: drupal01
+- name: "print ipv4 public address"
+  hosts: all
   gather_facts: True
   tasks:
-    - uri:
-        url: https://ipinfo.io/ip
-        return_content: yes
-      register: output
     - set_fact:
-            ip_adress: "{{ output.content | replace('\n', '') }}"
+        ip: "{{ansible_all_ipv4_addresses[0]}}"
     - debug:
-        msg: "{{ip_adress}}"
-
+        msg: "https://{{ip}}"
