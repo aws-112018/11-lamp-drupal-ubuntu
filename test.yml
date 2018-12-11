@@ -5,7 +5,9 @@
   tasks:
     - name: "debut du test"
       debug:
-        msg: "voici le debut du test"
-    - name: "get homepage HTTP code"
-      uri:
-        url: http://127.0.0.1       
+        msg: "Voici le debut du test"
+    - set_fact:
+        ipadd: "{{ ansible_default_ipv4.adress }}"
+    - debug:
+        msg: "http://{{ ipadd }}"    
+
