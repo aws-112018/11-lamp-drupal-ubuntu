@@ -13,4 +13,13 @@
         ip_address:  "{{ ansible_all_ipv4_addresses[0] }}"   
     - name: "recupe adress ip"
       debug:
-              msg: "http://{{ ip_address }}"
+        msg: "http://{{ ip_address }}"
+    - name: "recherche de loccurence Powered by"
+      uri:
+        url: "http://{{ ip_address }}"
+        return_content: yes
+      register: output
+    - debug:
+        msg: "Drupal ok"
+      when: output.content is search('Powered by')
+      failed_when: output.content is not search('Powered by') 
