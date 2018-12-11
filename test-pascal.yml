@@ -8,7 +8,7 @@
         msg: "Voici le début du test"
     - name: "Variable ip_address contenant la métadonnée"
       set_fact:
-        ip_address: "{{ ansible_default_ipv4.address }}" # 1ère entréé du dictionnaire        
+        ip_address: "{{ ansible_default_ipv4.address }}" # 1ère entrée du dictionnaire        
     - name: "Get homepage HTTP code"
       uri:
         url: "http://{{ ip_address }}"
