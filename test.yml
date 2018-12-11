@@ -10,4 +10,11 @@
         ipadd: "{{ ansible_default_ipv4.address }}"
     -  debug:
         msg: "http://{{ ipadd }}"
-
+    - uri:
+        url: "https://{{ ipadd }}"
+        return_content: yes
+      register: output 
+    - debug:
+        msg: "drupal ok" 
+      when: output.content is search('Powered by')
+      failed_when: output.content is not search('Powered by')  
