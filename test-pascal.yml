@@ -6,12 +6,18 @@
     - name: "Début du test"
       debug:
         msg: "Voici le début du test"
-    - name: "Get homepage HTTP code"
-      uri:
-        url: http://127.0.0.1
     - name: "Variable ip_address contenant la métadonnée"
       set_fact:
-        ip_address: "{{ ansible_default_ipv4.address }}" # 1ère entrée du dictionnaire
+        ip_address: "{{ ansible_default_ipv4.address }}" # 1ère entréé du dictionnaire        
+    - name: "Get homepage HTTP code"
+      uri:
+        url: "http://{{ ip_address }}"
+        return_content: yes
+      register: output
+    - name: "Recherche la ligne Powered by dans la page HTTP Drupal"
+      debug:
+        msg: "La page d'accueil Drupal est présente"
+      when: output.content is search ("Powered by")
     - name: "On affiche la variable ip_address"  
       debug:
         msg: "{{ ip_address }}"
