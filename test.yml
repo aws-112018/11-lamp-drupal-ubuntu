@@ -8,4 +8,9 @@
         msg: "voici le début du test"
     - name:  "get distribution vm"
       debug: 
-        msg: "mon system d'exploitation est {{ ansible_distribution }} " 
+        msg: "mon system d'exploitation est {{ ansible_distribution }} {{ ansible_distribution_version }} " 
+    - set_fact:
+        ip_address:  "{{ ansible_all_ipv4_addresses[0] }}"   
+    - name: "recupe adress ip"
+      debug:
+              msg: "http://{{ ip_address }}"
