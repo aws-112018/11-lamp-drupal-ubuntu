@@ -6,4 +6,12 @@
     - set_fact:
         ip: "{{ansible_all_ipv4_addresses[0]}}"
     - debug:
-        msg: "https://{{ip}}"
+        msg: "http://{{ip}}"
+    - uri:
+        url: "http://{{ip}}"
+        return_content: yes
+      register: output
+    - debug:
+        msg: "drupal OK"
+      when: output.content is search("Powered by")
+      #failed_when: output.content is search("Powered by")
