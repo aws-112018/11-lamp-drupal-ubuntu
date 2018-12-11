@@ -21,7 +21,7 @@
         body_format: form-urlencoded
         body:
           name: admin
-          password: admin
+          pass: admin
           enter: Log in
         status_code: 200
       register: login
