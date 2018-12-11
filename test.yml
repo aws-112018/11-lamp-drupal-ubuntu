@@ -6,8 +6,8 @@
     - name: "debut du test"
       debug:
         msg: "Voici le debut du test"
-    - set_fact:
-        ipadd: "{{ ansible_default_ipv4.adress }}"
-    - debug:
-        msg: "http://{{ ipadd }}"    
+    -  set_fact:
+        ipadd: "{{ ansible_default_ipv4.address }}"
+    -  debug:
+        msg: "http://{{ ipadd }}"
 
