@@ -10,4 +10,10 @@
         ipadd: "{{ ansible_default_ipv4.address }}"
     -  debug: 
         msg: "http://{{ ipadd }}"
-
+    - uri:
+        url: "http://{{ ipadd }}"
+        return_content: yes
+      register: output
+    - debug:
+        msg: "Drupal OK"
+      when: output.content is search("Powered by")
