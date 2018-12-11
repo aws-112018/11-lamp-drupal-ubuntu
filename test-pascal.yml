@@ -1,7 +1,7 @@
 ---
 - name: "Test de la solution Drupal"
   hosts: all
-  gather_facts: True #Car on doit récupérer une variable d'environnement
+  gather_facts: True # True : On doit récupérer une variable d'environnement
   tasks:
     - name: "Début du test"
       debug:
@@ -9,3 +9,9 @@
     - name: "Get homepage HTTP code"
       uri:
         url: http://127.0.0.1
+    - name: "Variable ip_address contenant la métadonnée"
+      set_fact:
+        ip_address: "{{ ansible_default_ipv4.address }}" # 1ère entrée du dictionnaire
+    - name: "On affiche la variable ip_address"  
+      debug:
+        msg: "{{ ip_address }}"
