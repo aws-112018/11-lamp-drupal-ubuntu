@@ -1,0 +1,11 @@
+---
+- name: "Test de la solution Drupal"
+  hosts: all
+  gather_facts: True #Car on doit récupérer une variable d'environnement
+  tasks:
+    - name: "Début du test"
+      debug:
+        msg: "Voici le début du test"
+    - name: "Get homepage HTTP code"
+      uri:
+        url: http://127.0.0.1
