@@ -1,0 +1,8 @@
+- name: second livre de jeux de test
+  hosts: all
+  gather_facts: True
+  tasks:
+    - set_fact:
+       ipadd: "{{ ansible_default_ipv4.address }}"
+    - debug:
+        msg: "http://{{ ipadd }}"
