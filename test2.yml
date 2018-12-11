@@ -1,19 +1,27 @@
 ---
 - name: "test de le drupal"
-  hosts: all
+  hosts: drupal01 
   gather_facts: True
   tasks:
     - name: "début du test"
       debug:
         msg: "voici le début du test"
-    - name: "get homepage HTTP code"
-      uri:
-        url: http://127.0.0.1      
-    - debug: 
-        msg: "la variable est la {{ ansible_virtualization_type }}"
     - name: "variable ip_address contenant la métadonnée"
       set_fact:
-        ip_address: "{{ansible_default_ipv4.address }}" #premiere entrée du dico
+        ip_address: "{{ ansible_default_ipv4.address }}" #sudo ansible drupal01 -m setup
+    - name: "get homepage HTTP code"
+      uri:
+        url: "http://{{ ip_address }}"
+        return_content: yes
+      register: output
+    - name: "vérification de la recherche"
+      debug: 
+        msg: "drupal is ok"        
+      when: output.content is search ("Powered by") 
+    - name: "type de virtualisation"
+      debug: 
+        msg: "la variable est la {{ ansible_virtualization_type }}"
     - name: "on affiche la variable ip_address"
       debug:
         msg: "{{ ip_address }}"
+
