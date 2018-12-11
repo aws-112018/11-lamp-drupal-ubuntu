@@ -1,10 +1,14 @@
 ---
-- name: "test de la solution drupal"
-  hosts: all
+- name: "récupérer l'adresse IP en tant que fact"
+  hosts: drupal01
   gather_facts: True
-  tasks: 
-    - name: "début du test"
-      debug: 
-        msg: "voici le début du test"
-    - name: "voir la page d'accueil"
+  tasks:
+    - uri:
+        url: https://ipinfo.io/ip
+        return_content: yes
+      register: output
+    - set_fact:
+            ip_adress: "{{ output.content | replace('\n', '') }}"
+    - debug:
+        msg: "{{ip_adress}}"
 
