@@ -17,4 +17,4 @@
     - debug:
         msg: "Drupal OK"
       when: output.content is search("Powered by")
-      failed_when: output.content is not search('assane')
+      failed_when: output.content is not search("assane")
