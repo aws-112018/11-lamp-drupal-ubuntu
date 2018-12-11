@@ -1,0 +1,12 @@
+---
+- name: "test de la solution drupal"
+  hosts: all
+  gather_facts: True
+  tasks:
+    - name: "début du test"
+      debug: 
+        msg: "voici le début du test"
+
+    - name: "get homepage HTTP code"
+      uri: 
+        url: https://127.0.0.1     
