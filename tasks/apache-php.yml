@@ -1,9 +1,12 @@
-- name: "install apache and php"
+---
+- name: "Add ondrej repository for later versions of PHP."
+  apt_repository:
+    repo: 'ppa:ondrej/php'
+    update_cache: yes
+
+- name: "Install Apache, MySQL, PHP, and other dependencies."
   apt:
     name:
-      - curl
-      - unzip
-      - sendmail
       - apache2
       - php7.1-common
       - php7.1-cli
@@ -19,30 +22,28 @@
       - php-apcu
       - libpcre3-dev
       - libapache2-mod-php7.1
-    state: present
+   state: present
 
-- name: "Disable the firewall (since this is for local dev only)."
-      service:
-        name: ufw
-        state: stopped
-    - name: "Start Apache, MySQL, and PHP."
-      service:
-        name: "{{ item }}"
-        state: started
-        enabled: yes
-      loop:
-        - apache2
-        - mysql
-    - name: "Enable Apache rewrite module (required for Drupal)."
-      apache2_module:
-        name: rewrite
-        state: present
-      notify: "restart apache"
-    - name: "Add Apache virtualhost for Drupal 8."
-      template:
-        src: "templates/drupal.test.conf.j2"
-        dest: "/etc/apache2/sites-available/{{ domain }}.test.conf"
-        owner: root
-        group: root
-        mode: 0644
-      notify: "restart apache"
+- name: "Start Apache and PHP."
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: "Enable Apache rewrite module (required for Drupal)."
+  apache2_module:
+    name: rewrite
+    state: present
+  notify: "restart apache"
+
+- name: "Add Apache virtualhost for Drupal 8."
+  template:
+    src: "templates/drupal.test.conf.j2"
+    dest: "/etc/apache2/sites-available/{{ domain }}.test.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: "restart apache"
+
+
+  

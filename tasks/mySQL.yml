@@ -1,0 +1,15 @@
+---
+- name: "Install Mysql"
+  apt:
+    name:
+      - python-mysqldb
+      - mysql-server
+    state: present
+
+- name: "Start MySQL"
+    service:
+      name: mysql
+      state: started
+      enabled: yes
+
+    
