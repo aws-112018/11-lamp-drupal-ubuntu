@@ -1,5 +1,4 @@
 ---
-tasks:
   - name: "Get software for apt repository management."
     apt:      
       name:
