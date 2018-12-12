@@ -1,6 +1,0 @@
-
-- uri:
-    url: "http://{{ ip_address }}"
-    return_content: yes
-  register: output
-

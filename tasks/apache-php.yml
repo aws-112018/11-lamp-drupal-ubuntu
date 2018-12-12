@@ -22,7 +22,7 @@
       - php-apcu
       - libpcre3-dev
       - libapache2-mod-php7.1
-   state: present
+    state: present
 
 - name: "Start Apache and PHP."
   service:

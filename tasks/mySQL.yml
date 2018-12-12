@@ -7,9 +7,9 @@
     state: present
 
 - name: "Start MySQL"
-    service:
-      name: mysql
-      state: started
-      enabled: yes
+  service:
+    name: mysql
+    state: started
+    enabled: yes
 
     
