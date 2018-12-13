@@ -1,0 +1,11 @@
+---
+# handlers file for Install_Drupal_Ubuntu
+- name: "restart apache"
+  service:
+    name: apache2
+    state: restarted
+- name: "Enable Apache rewrite module (required for Drupal)"
+  apache2_module:
+    name: "rewrite"
+    state: present
+  notify: restart apache
